@@ -4,37 +4,27 @@ public class BreathingActivity : Activity
 {
     public BreathingActivity() 
         : base("Breathing Activity",
-              "This activity will help you relax by pacing your breathing. Clear your mind and focus.") {}
+               "This activity helps you relax through breathing exercises.") { }
 
-    public void RunBreathing()
+    public void Run()
     {
-        StartActivity();
+        Start();
 
-        int duration = GetDuration();
         int elapsed = 0;
 
-        while (elapsed < duration)
+        while (elapsed < _duration)
         {
             Console.Write("\nBreathe in... ");
             Countdown(4);
+            elapsed += 4;
 
-            Console.Write("Breathe out... ");
-            Countdown(6);
+            if (elapsed >= _duration) break;
 
-            elapsed += 10;
+            Console.Write("\nBreathe out... ");
+            Countdown(4);
+            elapsed += 4;
         }
 
-        EndActivity();
-    }
-
-    private void Countdown(int seconds)
-    {
-        for (int i = seconds; i > 0; i--)
-        {
-            Console.Write(i + " ");
-            System.Threading.Thread.Sleep(1000);
-            Console.Write("\b\b");
-        }
-        Console.WriteLine();
+        End();
     }
 }
