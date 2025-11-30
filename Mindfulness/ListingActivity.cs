@@ -5,46 +5,41 @@ public class ListingActivity : Activity
 {
     private List<string> _prompts = new List<string>()
     {
-        "Who are people you appreciate?",
-        "What are personal strengths of yours?",
-        "Who have you helped this week?",
-        "What blessings have you noticed recently?"
+        "Who are people that you appreciate?",
+        "What are your personal strengths?",
+        "Who have you helped recently?",
+        "What blessings have you seen this month?"
     };
 
-    public ListingActivity() 
+    public ListingActivity()
         : base("Listing Activity",
-              "This activity helps you think of positive things by listing items.") {}
+               "This activity helps you list positive things in your life.") { }
 
-    public void RunListing()
+    public void Run()
     {
-        StartActivity();
+        Start();
+
         Random rand = new Random();
+        Console.WriteLine($"\nPrompt: {_prompts[rand.Next(_prompts.Count)]}");
 
-        Console.WriteLine("\nPrompt:");
-        Console.WriteLine(_prompts[rand.Next(_prompts.Count)]);
-        
-        Console.WriteLine("\nYou have 5 seconds before listing begins...");
-        new SpinnerAnimation().Run(5);
+        Console.WriteLine("\nYou have a few seconds to prepare...");
+        Countdown(5);
 
-        List<string> items = new List<string>();
-        int duration = GetDuration();
         int elapsed = 0;
+        List<string> items = new List<string>();
 
-        Console.WriteLine("\nStart listing items. Press Enter after each:");
+        Console.WriteLine("\nStart listing items:");
 
-        while (elapsed < duration)
+        while (elapsed < _duration)
         {
-            if (Console.KeyAvailable)
-            {
-                string entry = Console.ReadLine();
-                items.Add(entry);
-            }
-
-            System.Threading.Thread.Sleep(1000);
-            elapsed++;
+            Console.Write("> ");
+            string item = Console.ReadLine();
+            items.Add(item);
+            elapsed += 2;
         }
 
-        Console.WriteLine($"\nYou listed {items.Count} items.");
-        EndActivity();
+        Console.WriteLine($"\nYou listed {items.Count} items!");
+
+        End();
     }
 }
