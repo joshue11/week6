@@ -4,49 +4,42 @@ class Program
 {
     static void Main(string[] args)
     {
-        bool running = true;
-
-        while (running)
+        while (true)
         {
             Console.Clear();
-            Console.WriteLine("Mindfulness Program");
+            Console.WriteLine("Mindfulness Program\n");
             Console.WriteLine("1. Breathing Activity");
             Console.WriteLine("2. Reflection Activity");
             Console.WriteLine("3. Listing Activity");
             Console.WriteLine("4. Quit");
-            Console.Write("\nChoose an option: ");
 
-            string choice = Console.ReadLine();
-            Console.Clear();
+            Console.Write("\nSelect an option: ");
+            string option = Console.ReadLine();
 
-            switch (choice)
+            if (option == "1")
             {
-                case "1":
-                    new BreathingActivity().RunBreathing();
-                    break;
-
-                case "2":
-                    new ReflectionActivity().RunReflection();
-                    break;
-
-                case "3":
-                    new ListingActivity().RunListing();
-                    break;
-
-                case "4":
-                    running = false;
-                    break;
-
-                default:
-                    Console.WriteLine("Invalid choice.");
-                    break;
+                new BreathingActivity().Run();
+            }
+            else if (option == "2")
+            {
+                new ReflectionActivity().Run();
+            }
+            else if (option == "3")
+            {
+                new ListingActivity().Run();
+            }
+            else if (option == "4")
+            {
+                Console.WriteLine("\nGoodbye!");
+                break;
+            }
+            else
+            {
+                Console.WriteLine("\nInvalid option.");
             }
 
-            if (running)
-            {
-                Console.WriteLine("\nPress Enter to continue...");
-                Console.ReadLine();
-            }
+            Console.WriteLine("\nPress ENTER to continue...");
+            Console.ReadLine();
         }
     }
 }
