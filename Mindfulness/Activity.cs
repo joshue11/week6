@@ -3,10 +3,9 @@ using System.Threading;
 
 public class Activity
 {
-    protected string _name;
-    protected string _description;
-    private int _duration;
-    private SpinnerAnimation _spinner = new SpinnerAnimation();
+    private string _name;
+    private string _description;
+    protected int _duration;
 
     public Activity(string name, string description)
     {
@@ -14,29 +13,48 @@ public class Activity
         _description = description;
     }
 
-    public void StartActivity()
+    public void Start()
     {
         Console.Clear();
-        Console.WriteLine($"--- {_name} ---\n");
+        Console.WriteLine($"=== {_name} ===\n");
         Console.WriteLine(_description);
         Console.Write("\nEnter duration in seconds: ");
         _duration = int.Parse(Console.ReadLine());
 
         Console.WriteLine("\nPrepare to begin...");
-        _spinner.Run(3);
+        Spinner(3);
     }
 
-    public void EndActivity()
+    public void End()
     {
         Console.WriteLine("\nGreat job!");
-        _spinner.Run(2);
-
-        Console.WriteLine($"\nYou completed '{_name}' for {_duration} seconds.");
-        _spinner.Run(3);
+        Spinner(3);
+        Console.WriteLine($"\nYou completed the {_name} activity for {_duration} seconds!");
+        Spinner(3);
     }
 
-    public int GetDuration()
+    protected void Spinner(int seconds)
     {
-        return _duration;
+        string[] symbols = { "|", "/", "-", "\\" };
+        DateTime end = DateTime.Now.AddSeconds(seconds);
+        int index = 0;
+
+        while (DateTime.Now < end)
+        {
+            Console.Write(symbols[index]);
+            Thread.Sleep(150);
+            Console.Write("\b \b");
+            index = (index + 1) % symbols.Length;
+        }
+    }
+
+    protected void Countdown(int seconds)
+    {
+        for (int i = seconds; i > 0; i--)
+        {
+            Console.Write(i);
+            Thread.Sleep(1000);
+            Console.Write("\b \b");
+        }
     }
 }
